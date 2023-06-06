@@ -1,60 +1,59 @@
 package trainer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		ArrayList<Range> ranges = new ArrayList<>();
-		Scanner scan = new Scanner(System.in);
-		int[][] myBoard = new int[13][13];
-		for(int i = 0; i < 13; i++) {
-			for(int j = 0; j < 13; j++) {
-				myBoard[i][j] = 1;
-			}
-		}
-		Range myRange = new Range(myBoard, "Button");
-		ranges.add(myRange);
-		startSimulations(ranges, scan);
-	}
-
-	public static void startSimulations(ArrayList<Range> ranges, Scanner scan) {
-		int score = 0;
-		System.out.println("Welcome to the simulation zone! Type 'quit' at any time to quit. Type 'score' at any time to see your score!");
-		while (true) {
-			int range = (int) (Math.random() * ranges.size() - 1);
-			int x = (int) (Math.random() * 13);
-			int y = (int) (Math.random() * 13);
-			int correctDecision = ranges.get(range).printSimulation(x, y);
-			String playerInput = scan.nextLine();
-			int playerDecision;
-			if(playerInput.toLowerCase().equals("quit")) {
-				break;
-			}
-			if(playerInput.toLowerCase().equals("score")) {
-				System.out.println("Score: " + score);
-				playerInput = scan.nextLine();
-			}
-			if (playerInput.toLowerCase().equals("raise")) {
-				playerDecision = 1;
-			} else if (playerInput.toLowerCase().equals("fold")) {
-				playerDecision = 0;
-			} else {
-				playerDecision = -1;
-			}
-			if (playerDecision == correctDecision) {
-				System.out.println("Great job, that's correct!");
-				score++;
-			} else {
-				System.out.print("Not quite, you'd want to ");
-				if (correctDecision == 1) {
-					System.out.print("raise");
-				} else {
-					System.out.print("fold");
+		File def = new File("resources/default.txt");
+		try {
+			FileReader reader = new FileReader(def);
+			int c;
+			while((c = reader.read()) != -1) {
+				int range[][] = new int[13][13];
+				char character = (char) c;
+				for(int i = 0; i < 13; i++) {
+					for(int j = 0; j < 13; j++) {
+						range[i][j] = reader.read() - '0';
+					}
 				}
-				System.out.print(" here.\n");
+				String position = null;
+				if(character == 'D') {
+					position = "Button";
+				}
+				else if(character == 'S') {
+					position = "SB";
+				}
+				else if(character == 'B') {
+					position = "BB";
+				}
+				else if(character == 'U') {
+					position = "UTG";
+				}
+				else if(character == 'M') {
+					position = "MP";
+				}
+				else if(character == 'C') {
+					position = "CUTOFF";
+				}
+				else {
+					System.err.println("Invalid Data File");
+				}
+				ranges.add(new Range(range, position));
 			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			System.err.println("File Error");
+		} catch (IOException e) {
+			System.err.println("IOException");
 		}
+		GUI gui = new GUI();
+		gui.start();
 	}
-
 }
