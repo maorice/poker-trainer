@@ -17,12 +17,12 @@ public class Card {
 		this.suit = Suits.valueOf(suit.toUpperCase());
 	}
 
-	public Faces getFace() {
-		return face;
+	public String getFace() {
+		return face.toString().toLowerCase();
 	}
 
-	public Suits getSuit() {
-		return suit;
+	public String getSuit() {
+		return suit.toString().toLowerCase();
 	}
 	
 	public boolean equals(Card other) {

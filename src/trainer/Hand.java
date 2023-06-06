@@ -19,6 +19,10 @@ public class Hand {
 		hand.add(two);
 		this.suited = suited;
 	}
+	
+	public boolean suited() {
+		return hand.get(0).getFace() == hand.get(1).getFace();
+	}
 
 	public boolean suited(Card one, Card two) {
 		if (one.getFace() != two.getFace()) {
