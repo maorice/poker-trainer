@@ -8,9 +8,6 @@ import javax.swing.*;
 public class GUI {
 	JFrame frame;
 	JPanel cards;
-	ArrayList<Range> ranges;
-	ArrayList<Card> deck;
-	ArrayList<Hand> allHands;
 
 	public GUI() {
 		frame = new JFrame("New JFrame");
@@ -24,9 +21,11 @@ public class GUI {
 		frame.setLayout(null);
 	}
 
-	public void start() {
-		ImageIcon icon = new ImageIcon("resources/fronts/png_96_dpi/clubs_10.png");
-		ImageIcon icon2 = new ImageIcon("resources/fronts/png_96_dpi/clubs_9.png");
+	public void displaySituation(Card c1, Card c2, String c1img, String c2img) {
+		System.out.println(c1img);
+		System.out.println(c2img);
+		ImageIcon icon = new ImageIcon(c1img);
+		ImageIcon icon2 = new ImageIcon(c2img);
 		JLabel card1Picture = new JLabel(icon);
 		JLabel card2Picture = new JLabel(icon2);
 		card1Picture.setBounds(0, 0, 300, 400);
@@ -34,8 +33,5 @@ public class GUI {
 		cards.add(card1Picture);
 		cards.add(card2Picture);
 		frame.setVisible(true);
-		while (true) {
-
-		}
 	}
 }

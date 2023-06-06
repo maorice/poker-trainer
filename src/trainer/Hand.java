@@ -26,4 +26,8 @@ public class Hand {
 		}
 		return false;
 	}
+	
+	public Card getCard(int i) {
+		return hand.get(i - 1);
+	}
 }

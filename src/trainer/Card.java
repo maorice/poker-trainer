@@ -24,4 +24,8 @@ public class Card {
 	public Suits getSuit() {
 		return suit;
 	}
+	
+	public boolean equals(Card other) {
+		return this.getFace() == other.getFace() && this.getSuit() == other.getSuit();
+	}
 }

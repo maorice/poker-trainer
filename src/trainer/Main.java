@@ -10,21 +10,42 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		ArrayList<Card> deck = new ArrayList<Card>();
+		ArrayList<Card> deck = new ArrayList<>();
+		ArrayList<Hand> allHands = new ArrayList<>();
 		HashMap<Card, String> imgMap = new HashMap<>();
+		GUI gui = new GUI();
+
 		String[] faces = { "Deuce", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen",
 				"King", "Ace" };
 		String[] altFaces = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king", "ace" };
 		String[] suits = { "clubs", "diamonds", "hearts", "spades" };
-		final String cardImgPath = "resources/png_96_dpi/";
+		final String cardImgPath = "resources/fronts/png_96_dpi/";
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 13; j++) {
 				Card temp = new Card(faces[j], suits[i]);
 				deck.add(temp);
-				imgMap.put(temp, cardImgPath + suits[i] + "_" + altFaces[j]);
+				imgMap.put(temp, cardImgPath + suits[i] + "_" + altFaces[j] + ".png");
+			}
+		}
+		for (int i = 0; i < 52; i++) {
+			for (int j = i + 1; j < 52; j++) {
+				allHands.add(new Hand(deck.get(i), deck.get(j)));
 			}
 		}
 		ArrayList<Range> ranges = new ArrayList<>();
+		readData(ranges);
+
+		int rangeIndex = (int) (Math.random() * ranges.size());
+		int handIndex = (int) (Math.random() * allHands.size());
+		Hand myHand = allHands.get(handIndex);
+		Card myHandOne = myHand.getCard(1);
+		Card myHandTwo = myHand.getCard(2);
+		Range myRange = ranges.get(rangeIndex);
+		
+		gui.displaySituation(myHandOne, myHandTwo, imgMap.get(myHandOne), imgMap.get(myHandTwo));
+	}
+
+	public static void readData(ArrayList<Range> ranges) {
 		File def = new File("resources/default.txt");
 		try {
 			FileReader reader = new FileReader(def);
@@ -61,7 +82,5 @@ public class Main {
 		} catch (IOException e) {
 			System.err.println("IOException");
 		}
-		GUI gui = new GUI();
-		gui.start();
 	}
 }
