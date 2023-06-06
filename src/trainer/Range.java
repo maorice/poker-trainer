@@ -13,5 +13,9 @@ public class Range {
 		this.rangeMatrix = rangeMatrix;
 		this.position = Positions.valueOf(position.toUpperCase());
 	}
+	
+	public String getPosition() {
+		return position.toString();
+	}
 
 }

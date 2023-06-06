@@ -42,7 +42,7 @@ public class Main {
 		Card myHandTwo = myHand.getCard(2);
 		Range myRange = ranges.get(rangeIndex);
 		
-		gui.displaySituation(myHandOne, myHandTwo, imgMap.get(myHandOne), imgMap.get(myHandTwo));
+		gui.displaySituation(myHandOne, myHandTwo, imgMap.get(myHandOne), imgMap.get(myHandTwo), myRange.getPosition());
 	}
 
 	public static void readData(ArrayList<Range> ranges) {
