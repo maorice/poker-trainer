@@ -1,11 +1,17 @@
 package trainer;
+
 import java.awt.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 public class GUI {
 	JFrame frame;
 	JPanel cards;
+	ArrayList<Range> ranges;
+	ArrayList<Card> deck;
+	ArrayList<Hand> allHands;
+
 	public GUI() {
 		frame = new JFrame("New JFrame");
 		frame.setSize(new Dimension(1000, 1000));
@@ -17,7 +23,7 @@ public class GUI {
 		cards.setBackground(new Color(0));
 		frame.setLayout(null);
 	}
-	
+
 	public void start() {
 		ImageIcon icon = new ImageIcon("resources/fronts/png_96_dpi/clubs_10.png");
 		ImageIcon icon2 = new ImageIcon("resources/fronts/png_96_dpi/clubs_9.png");
@@ -28,8 +34,8 @@ public class GUI {
 		cards.add(card1Picture);
 		cards.add(card2Picture);
 		frame.setVisible(true);
-		while(true) {
-			
+		while (true) {
+
 		}
 	}
 }
